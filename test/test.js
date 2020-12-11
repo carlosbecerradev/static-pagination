@@ -1,7 +1,69 @@
-const pageable = createPageable(list, 2, 6);
+// params
+const page = 0;
+const elementsPerPage = 4
+const allData = list
+let pageable = createPageable(allData, page, elementsPerPage)
+let paginator = createPaginator(pageable)
 
-console.log(pageable)
+function changePage(indexPage) {
+  if (pageable.currentPage != indexPage) {
+    pageable = createPageable(allData, indexPage, elementsPerPage)
+    paginator = createPaginator(pageable)
+    console.log(pageable)
+    console.log(paginator)
+    show()
+  }
+}
 
-const paginator = createPaginator(pageable)
+function show() {
+  function dataTemplate(pageable) {
+    let result = ""
 
-console.log(paginator)
+    for (let i = 0; i < pageable.elements.length; i++) {
+      // console.log(pageable.elements[i])
+      result += (setTemplate(pageable.elements[i]))
+    }
+
+    function setTemplate(element) {
+      return `
+      <div>
+        <div>${element.id}</div>
+        <div>${element.name}</div>
+        <div>${element.item_category.name}</div>
+        <div>${element.state}</div>
+      </div>`
+    }
+
+    return result
+  }
+
+  function paginatorTemplate(paginator) {
+    let result = ""
+
+    for (let i = 0; i < paginator.length; i++) {
+      // console.log(pageable.elements[i])
+      result += (setTemplate(paginator[i]))
+    }
+    // pagination.innerHTML = JSON.stringify(paginator)
+    function setTemplate(element) {
+      if (element.active == true) {
+        return `
+                <div>
+                  <div style="color: red;" class="active" onclick="changePage(${element.index})">${element.page}</div>
+                </div>
+                `
+      }
+      return `
+              <div>
+                <div onclick="changePage(${element.index})">${element.page}</div>
+              </div>
+              `
+    }
+
+    return result
+  }
+  data.innerHTML = dataTemplate(pageable)
+  pagination.innerHTML = paginatorTemplate(paginator)
+}
+
+show()
