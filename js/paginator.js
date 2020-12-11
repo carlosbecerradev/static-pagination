@@ -21,5 +21,15 @@ function createPaginator(pageable) {
     paginator.push({ index: (desde + i) - 1, page: desde + i, active: pageable.currentPage == (desde + i) - 1 })
   }
 
+  // Add first paginator item or last paginator item
+  if (paginator.some(object => object.index == 0)) {
+    paginator.push({ index: pageable.totalPages - 1, page: pageable.totalPages, active: false })
+  } else if (paginator.some(object => object.index == pageable.totalPages - 1)) {
+    paginator.unshift({ index: 0, page: 1, active: false })
+  } else {
+    paginator.unshift({ index: 0, page: 1, active: false })
+    paginator.push({ index: pageable.totalPages - 1, page: pageable.totalPages, active: false })
+  }
+
   return paginator
 }
