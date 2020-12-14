@@ -22,13 +22,15 @@ function createPaginator(pageable) {
   }
 
   // Add first paginator item or last paginator item
-  if (paginator.some(object => object.index == 0)) {
-    paginator.push({ index: pageable.totalPages - 1, page: pageable.totalPages, active: false })
-  } else if (paginator.some(object => object.index == pageable.totalPages - 1)) {
-    paginator.unshift({ index: 0, page: 1, active: false })
-  } else {
-    paginator.unshift({ index: 0, page: 1, active: false })
-    paginator.push({ index: pageable.totalPages - 1, page: pageable.totalPages, active: false })
+  if (pageable.totalPages > pageable.elementsPerPage && pageable.totalPages != 1) {
+    if (paginator.some(object => object.index == 0)) {
+      paginator.push({ index: pageable.totalPages - 1, page: pageable.totalPages, active: false })
+    } else if (paginator.some(object => object.index == pageable.totalPages - 1)) {
+      paginator.unshift({ index: 0, page: 1, active: false })
+    } else {
+      paginator.unshift({ index: 0, page: 1, active: false })
+      paginator.push({ index: pageable.totalPages - 1, page: pageable.totalPages, active: false })
+    }
   }
 
   return paginator

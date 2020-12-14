@@ -1,7 +1,7 @@
 // params
 const page = 0;
-const elementsPerPage = 4
-const allData = list
+const elementsPerPage = 5
+const allData = list.slice(0, 6)
 let pageable = createPageable(allData, page, elementsPerPage)
 let paginator = createPaginator(pageable)
 
