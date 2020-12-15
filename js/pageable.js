@@ -1,28 +1,27 @@
-function createPageable(list = [], page = 0, elementsPerPage = 0) {
-  let index = 0
-  let totalElements = list.length
-  // find total pages
+// Pageable allows from a list to create pages
+function createPageable(list = [], indexOfPage = 0, elementsPerPage = 0) {
+  let totalElements = calculateTotalElements(list)
+  let totalPages = calculateTotalPages(totalElements, elementsPerPage)
+  let elements = sliceElements(indexOfPage, elementsPerPage)
+
+  return {
+    elements: elements,
+    totalPages: totalPages,
+    elementsPerPage: elementsPerPage,
+    currentPage: indexOfPage,
+  }
+}
+
+function calculateTotalElements(list) {
+  return list.length
+}
+
+function calculateTotalPages(totalElements, elementsPerPage) {
   let totalPages = Math.floor(totalElements / elementsPerPage)
-  if (totalElements % elementsPerPage > 0) {
-    totalPages++
-  }
-  // retornable
-  let pageable = {
-    elements: [],
-    totalPages: 0,
-    elementsPerPage: 0,
-    currentPage: 0,
-  }
-  // calculate index
-  index = (elementsPerPage * page)
-  // set page elements
-  let elements = list.slice(index, (index + elementsPerPage))
+  return totalElements % elementsPerPage > 0 ? totalPages++ : totalPages
+}
 
-  // fill pageable
-  pageable.elements = elements
-  pageable.totalPages = totalPages
-  pageable.elementsPerPage = elementsPerPage
-  pageable.currentPage = page
-
-  return pageable
+function sliceElements(indexOfPage, elementsPerPage) {
+  let from = (elementsPerPage * indexOfPage)
+  return list.slice(from, (from + elementsPerPage))
 }
