@@ -1,6 +1,14 @@
+// Returns an array with the available pages
 function createPaginator(pageable) {
-  let paginator = []
-  let desde, hasta
+  let paginator = calculatePaginatorElements(pageable)
+  addFirstOrLastElements(paginator)
+
+  return paginator
+}
+
+function calculatePaginatorElements(pageable) {
+  let desde = 0, hasta = 0, paginator = []
+
   if (pageable.totalPages <= pageable.elementsPerPage) {
     desde = 1
     hasta = pageable.totalPages
@@ -21,7 +29,10 @@ function createPaginator(pageable) {
     paginator.push({ index: (desde + i) - 1, page: desde + i, active: pageable.currentPage == (desde + i) - 1 })
   }
 
-  // Add first paginator item or last paginator item
+  return paginator;
+}
+
+function addFirstOrLastElements(pageable, paginator) {
   if (pageable.totalPages > pageable.elementsPerPage && pageable.totalPages != 1) {
     if (paginator.some(object => object.index == 0)) {
       paginator.push({ index: pageable.totalPages - 1, page: pageable.totalPages, active: false })
@@ -32,6 +43,4 @@ function createPaginator(pageable) {
       paginator.push({ index: pageable.totalPages - 1, page: pageable.totalPages, active: false })
     }
   }
-
-  return paginator
 }
