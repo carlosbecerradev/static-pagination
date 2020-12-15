@@ -18,7 +18,7 @@ function calculateTotalElements(list) {
 
 function calculateTotalPages(totalElements, elementsPerPage) {
   let totalPages = Math.floor(totalElements / elementsPerPage)
-  return totalElements % elementsPerPage > 0 ? totalPages++ : totalPages
+  return totalElements % elementsPerPage > 0 ? ++totalPages : totalPages
 }
 
 function sliceElements(indexOfPage, elementsPerPage) {
