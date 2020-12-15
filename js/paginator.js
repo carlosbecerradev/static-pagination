@@ -1,7 +1,7 @@
 // Returns an array with the available pages
 function createPaginator(pageable) {
   let paginator = calculatePaginatorElements(pageable)
-  addFirstOrLastElements(paginator)
+  addFirstOrLastElements(pageable, paginator)
 
   return paginator
 }
