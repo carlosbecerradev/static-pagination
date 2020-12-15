@@ -26,7 +26,7 @@ function show() {
 
     function setTemplate(element) {
       return `
-      <div>
+      <div class="grid grid-cols-4 text-center py-2">
         <div>${element.id}</div>
         <div>${element.name}</div>
         <div>${element.item_category.name}</div>
@@ -49,13 +49,13 @@ function show() {
       if (element.active == true) {
         return `
                 <div>
-                  <div style="color: red;" class="active" onclick="changePage(${element.index})">${element.page}</div>
+                  <button class="text-green-400" onclick="changePage(${element.index})">${element.page}</button>
                 </div>
                 `
       }
       return `
               <div>
-                <div onclick="changePage(${element.index})">${element.page}</div>
+                <button onclick="changePage(${element.index})">${element.page}</button>
               </div>
               `
     }
