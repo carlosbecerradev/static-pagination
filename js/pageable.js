@@ -2,7 +2,7 @@
 function createPageable(list = [], indexOfPage = 0, elementsPerPage = 0) {
   let totalElements = calculateTotalElements(list)
   let totalPages = calculateTotalPages(totalElements, elementsPerPage)
-  let elements = sliceElements(indexOfPage, elementsPerPage)
+  let elements = sliceElements(list, indexOfPage, elementsPerPage)
 
   return {
     elements: elements,
@@ -21,7 +21,7 @@ function calculateTotalPages(totalElements, elementsPerPage) {
   return totalElements % elementsPerPage > 0 ? ++totalPages : totalPages
 }
 
-function sliceElements(indexOfPage, elementsPerPage) {
+function sliceElements(list, indexOfPage, elementsPerPage) {
   let from = (elementsPerPage * indexOfPage)
   return list.slice(from, (from + elementsPerPage))
 }
