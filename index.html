@@ -32,14 +32,33 @@
     </div>
 
     <div id="data" class="divide-y text-white"></div>
-    <div id="pagination" class="flex space-x-4 my-4 text-xl text-white justify-center"></div>
+    <div id="paginator" class="flex space-x-4 my-4 text-xl text-white justify-center"></div>
 
   </div>
 
   <script src="js/data.js"></script>
   <script src="js/pageable.js"></script>
   <script src="js/paginator.js"></script>
-  <script src="test/test.js"></script>
+  <script src="js/pagination.js"></script>
+  <script>
+    // initial values
+    const pagination = {
+      elementsPerPage: parseInt(elementsPerPageInput.value),
+      data: list.slice(0, parseInt(totalElementsInput.value)) // from data.js
+    }
+
+    createPagination()
+
+    // Dynamic values
+    elementsPerPageInput.addEventListener('input', updateValues)
+    totalElementsInput.addEventListener('input', updateValues)
+
+    function updateValues(evt) {
+      pagination.elementsPerPage = elementsPerPageInput.value <= 1 || elementsPerPageInput.value == null ? 1: parseInt(elementsPerPageInput.value)
+      pagination.data = list.slice(0, totalElementsInput.value <= 1 || totalElementsInput.value == null ? 1: parseInt(totalElementsInput.value))
+      createPagination()
+    }
+  </script>
 </body>
 
 </html>
